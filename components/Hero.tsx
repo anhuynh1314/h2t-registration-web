@@ -107,7 +107,7 @@ const Hero: React.FC = () => {
         <div
           className="absolute z-10 left-0 right-0 animate-cine-fade-in-up text-center px-6 sm:px-4"
           style={{
-            top: 'clamp(70%, 66vw, 70%)',
+            top: 'clamp(75%, 66vw, 75%)',
             animationDelay: '0.9s',
           }}
         >
@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
         <div
           className="absolute z-10 left-0 right-0 flex justify-center animate-cine-fade-in-up"
           style={{
-            top: 'clamp(80%, 80vw, 80%)',
+            top: 'clamp(85%, 80vw, 85%)',
             animationDelay: '1.5s',
           }}
         >
