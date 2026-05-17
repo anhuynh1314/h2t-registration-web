@@ -119,7 +119,6 @@ const Hero: React.FC = () => {
           </p>
         </div>
 
-
         {/* ===== CTA BUTTON — centered at ~75% mobile, ~80% desktop ===== */}
         <div
           className="absolute z-10 left-0 right-0 flex justify-center animate-cine-fade-in-up"

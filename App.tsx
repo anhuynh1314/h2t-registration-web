@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Privacy from './components/Privacy';
+import Terms from './components/Terms';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,14 @@ const App: React.FC = () => {
               <Header />
               <main className="flex-grow flex flex-col">
                 <Privacy />
+              </main>
+            </>
+          } />
+          <Route path="/terms" element={
+            <>
+              <Header />
+              <main className="flex-grow flex flex-col bg-white">
+                <Terms />
               </main>
             </>
           } />
