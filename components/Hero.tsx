@@ -355,24 +355,6 @@ const Hero: React.FC = () => {
             <span className="absolute -bottom-1 left-0 right-0 h-px bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-400 ease-out origin-center" />
           </Link>
 
-          {/* Separator dot */}
-          <span className="w-[3px] h-[3px] rounded-full bg-white/20 flex-shrink-0" />
-
-          <Link
-            to="/privacy"
-            className="
-              font-oswald text-[11px] sm:text-xs font-semibold text-white/50
-              uppercase tracking-[0.15em]
-              hover:text-white/70
-              transition-all duration-400 ease-out
-              relative
-              group
-            "
-          >
-            Chính sách quyền riêng tư
-            <span className="absolute -bottom-1 left-0 right-0 h-px bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-400 ease-out origin-center" />
-          </Link>
-
         </nav>
 
         {/* Bottom edge — very subtle line */}
