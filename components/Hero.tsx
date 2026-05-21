@@ -18,27 +18,30 @@ const Hero: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
-  // Force autoplay video on mobile
+  // Force autoplay video on mobile — hide until actually playing
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // When video starts playing, fade it in
+    const onPlaying = () => setVideoReady(true);
+    video.addEventListener('playing', onPlaying);
+
     const tryPlay = async () => {
       try {
-        video.muted = true; // Ensure muted for autoplay policy
+        video.muted = true;
         await video.play();
       } catch (err) {
-        console.warn('Video autoplay failed, showing poster fallback:', err);
-        setVideoFailed(true);
+        console.warn('Video autoplay blocked, waiting for user tap:', err);
       }
     };
 
-    // Try playing immediately
+    // Try autoplay immediately
     tryPlay();
 
-    // Also try on user interaction (tap anywhere)
+    // Retry on first user interaction (tap/click anywhere)
     const handleInteraction = () => {
       if (video.paused) {
         tryPlay();
@@ -48,6 +51,7 @@ const Hero: React.FC = () => {
     document.addEventListener('click', handleInteraction, { once: true });
 
     return () => {
+      video.removeEventListener('playing', onPlaying);
       document.removeEventListener('touchstart', handleInteraction);
       document.removeEventListener('click', handleInteraction);
     };
@@ -106,6 +110,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70" />
 
         {/* ===== VIDEO BACKGROUND ===== */}
+        {/* Video starts invisible (opacity-0), fades in when actually playing */}
         <video
           ref={videoRef}
           autoPlay
@@ -115,10 +120,17 @@ const Hero: React.FC = () => {
           // @ts-ignore — webkit-playsinline for older iOS
           webkit-playsinline="true"
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover z-[1] opacity-90 hero-video"
+          className={`absolute inset-0 w-full h-full object-cover z-[1] hero-video transition-opacity duration-1000 ${
+            videoReady ? 'opacity-90' : 'opacity-0'
+          }`}
         >
           <source src="/videos/Intro.mp4" type="video/mp4" />
         </video>
+
+        {/* Invisible tap layer — catches touch events above video to prevent native play button */}
+        {!videoReady && (
+          <div className="absolute inset-0 z-[2] cursor-pointer" />
+        )}
 
         {/* Video overlay — đảm bảo text vẫn đọc được trên video */}
         <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-transparent to-black/50" />
