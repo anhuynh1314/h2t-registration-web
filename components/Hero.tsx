@@ -115,23 +115,10 @@ const Hero: React.FC = () => {
           // @ts-ignore — webkit-playsinline for older iOS
           webkit-playsinline="true"
           preload="auto"
-          poster="/images/Character.jpg"
-          className={`absolute inset-0 w-full h-full object-cover z-[1] opacity-90 hero-video ${videoFailed ? 'hidden' : ''}`}
+          className="absolute inset-0 w-full h-full object-cover z-[1] opacity-90 hero-video"
         >
           <source src="/videos/Intro.mp4" type="video/mp4" />
         </video>
-
-        {/* Fallback static background when video cannot autoplay */}
-        {videoFailed && (
-          <div
-            className="absolute inset-0 z-[1] opacity-90"
-            style={{
-              backgroundImage: 'url(/images/Character.jpg)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
-        )}
 
         {/* Video overlay — đảm bảo text vẫn đọc được trên video */}
         <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-transparent to-black/50" />
