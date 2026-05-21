@@ -12,11 +12,46 @@ import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const stripRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [stripVisible, setStripVisible] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  // Force autoplay video on mobile
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = async () => {
+      try {
+        video.muted = true; // Ensure muted for autoplay policy
+        await video.play();
+      } catch (err) {
+        console.warn('Video autoplay failed, showing poster fallback:', err);
+        setVideoFailed(true);
+      }
+    };
+
+    // Try playing immediately
+    tryPlay();
+
+    // Also try on user interaction (tap anywhere)
+    const handleInteraction = () => {
+      if (video.paused) {
+        tryPlay();
+      }
+    };
+    document.addEventListener('touchstart', handleInteraction, { once: true });
+    document.addEventListener('click', handleInteraction, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleInteraction);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -72,15 +107,31 @@ const Hero: React.FC = () => {
 
         {/* ===== VIDEO BACKGROUND ===== */}
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          poster="/images/poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover z-[1] opacity-90"
+          // @ts-ignore — webkit-playsinline for older iOS
+          webkit-playsinline="true"
+          preload="auto"
+          poster="/images/Character.jpg"
+          className={`absolute inset-0 w-full h-full object-cover z-[1] opacity-90 hero-video ${videoFailed ? 'hidden' : ''}`}
         >
           <source src="/videos/Intro.mp4" type="video/mp4" />
         </video>
+
+        {/* Fallback static background when video cannot autoplay */}
+        {videoFailed && (
+          <div
+            className="absolute inset-0 z-[1] opacity-90"
+            style={{
+              backgroundImage: 'url(/images/Character.jpg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+        )}
 
         {/* Video overlay — đảm bảo text vẫn đọc được trên video */}
         <div className="absolute inset-0 z-[2] bg-gradient-to-b from-black/10 via-transparent to-black/50" />
