@@ -165,7 +165,7 @@ const Hero: React.FC = () => {
             Cánh cửa bước vào "Lý Thuyết Chân Trời Thứ 2" sắp mở.
           </p>
           <p className="font-oswald font-bold italic text-white uppercase leading-[1.4] sm:leading-[1.5] tracking-[0.04em] drop-shadow-[0_2px_20px_rgba(0,0,0,0.6)] text-[0.72rem] sm:text-base md:text-lg lg:text-[1.35rem]">
-            Đăng ký ngay để nhận thông báo và đặc quyền ở giai đoạn Alpha/Beta Test.
+            Tải ngay Launcher Game để tham gia trải nghiệm Alpha/Beta Test.
           </p>
         </div>
 
@@ -177,8 +177,10 @@ const Hero: React.FC = () => {
             animationDelay: '1.5s',
           }}
         >
-          <button
-            onClick={() => setShowModal(true)}
+          <a
+            href="https://drive.google.com/uc?export=download&id=1HwLPajFikV_A8kZjOuOtvD0rRfI2jNAk"
+            target="_blank"
+            rel="noopener noreferrer"
             id="cta-register"
             className="
               animate-cine-pulse
@@ -197,11 +199,12 @@ const Hero: React.FC = () => {
               overflow-hidden
               cursor-pointer
               border-none outline-none
+              text-center
             "
           >
             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[800ms] ease-out bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-            <span className="relative z-10">Đăng Ký Hẹn Trước</span>
-          </button>
+            <span className="relative z-10">Tải Game Launcher</span>
+          </a>
         </div>
 
 
