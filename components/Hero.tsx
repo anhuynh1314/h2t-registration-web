@@ -178,7 +178,7 @@ const Hero: React.FC = () => {
           }}
         >
           <a
-            href="https://drive.google.com/file/d/1d4vxmKOjkDewCLPZH0eWUNNdRDDg6Q_b/view"
+            href="https://drive.google.com/uc?export=download&id=1d4vxmKOjkDewCLPZH0eWUNNdRDDg6Q_b"
             target="_blank"
             rel="noopener noreferrer"
             id="cta-register"
