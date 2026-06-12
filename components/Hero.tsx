@@ -178,7 +178,7 @@ const Hero: React.FC = () => {
           }}
         >
           <a
-            href="https://drive.google.com/uc?export=download&id=1mjtEdZPLDCznKBfw-4hGIgiCNMZuEYUE"
+            href="http://103.154.62.60/game_files/k2launcher.zip"
             target="_blank"
             rel="noopener noreferrer"
             id="cta-register"
